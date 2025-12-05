@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center mt-5">
+    <h2 class="text-success">🎉 Ticket Purchased Successfully!</h2>
+    <p>Your ticket has been added to your account.</p>
+
+    <a class="btn btn-primary mt-3"
+       asp-area="Guest"
+       asp-controller="Ticket"
+       asp-action="MyTickets">
+        View My Tickets
+    </a>
+
+    <a class="btn btn-secondary mt-3"
+       asp-area="Guest"
+       asp-controller="Event"
+       asp-action="Index">
+        Back to Events
+    </a>
+</div>

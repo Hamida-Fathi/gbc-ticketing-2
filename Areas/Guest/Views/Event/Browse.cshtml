@@ -1,0 +1,8 @@
+﻿@model IEnumerable<GBC_TicketingSystem_2.Areas.Admin.Models.Event>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="fw-bold text-primary mb-3">Browse Events</h2>
+@await Html.PartialAsync("Index", Model)

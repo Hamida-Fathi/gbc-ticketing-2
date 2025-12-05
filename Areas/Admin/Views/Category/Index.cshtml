@@ -1,0 +1,71 @@
+﻿@model IEnumerable<GBC_TicketingSystem_2.Areas.Admin.Models.Category>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="fw-bold text-primary mb-3">Manage Categories</h2>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <p class="mb-0 text-muted">
+        Use this page to <strong>view</strong>, <strong>edit</strong>, and <strong>delete</strong> event categories.
+    </p>
+
+    <a class="btn btn-primary"
+       asp-area="Admin"
+       asp-controller="Category"
+       asp-action="Create">
+        Create New Category
+    </a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        @if (!Model.Any())
+        {
+            <div class="p-4">
+                <p class="mb-0 text-muted">
+                    No categories have been created yet.
+                    Click <strong>"Create New Category"</strong> to add one.
+                </p>
+            </div>
+        }
+        else
+        {
+            <table class="table table-striped table-hover mb-0">
+                <!-- 🔹 changed from table-dark to table-primary (no more black bar) -->
+                <thead class="table-primary">
+                    <tr>
+                        <th style="width: 60%;">Name</th>
+                        <th style="width: 40%;" class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-semibold">@item.Name</td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-secondary me-2"
+                               asp-area="Admin"
+                               asp-controller="Category"
+                               asp-action="Edit"
+                               asp-route-id="@item.CategoryId">
+                                Edit
+                            </a>
+
+                            <a class="btn btn-sm btn-outline-danger"
+                               asp-area="Admin"
+                               asp-controller="Category"
+                               asp-action="Delete"
+                               asp-route-id="@item.CategoryId">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

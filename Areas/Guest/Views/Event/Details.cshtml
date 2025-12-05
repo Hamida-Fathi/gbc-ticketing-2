@@ -1,0 +1,104 @@
+﻿@model GBC_TicketingSystem_2.Areas.Admin.Models.Event
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-4">
+
+            <!-- TITLE -->
+            <h1 class="fw-bold text-primary mb-3">@Model.Title</h1>
+
+            <!-- EVENT INFO -->
+            <div class="d-flex flex-column gap-2 mb-4">
+
+                <p class="m-0">
+                    <span class="fw-semibold text-secondary">📅 Date:</span>
+                    @Model.EventDate.ToLocalTime().ToString("MMM dd, yyyy")
+                </p>
+
+                <p class="m-0">
+                    <span class="fw-semibold text-secondary">🏷 Category:</span>
+                    @Model.Category?.Name
+                </p>
+
+                <p class="m-0">
+                    <span class="fw-semibold text-secondary">🎟 Tickets Left:</span>
+                    <span id="ticketsLeft" class="badge bg-success fs-6">
+                        @Model.TicketsAvailable
+                    </span>
+                </p>
+
+            </div>
+
+            <hr />
+
+            <!-- DESCRIPTION -->
+            <h4 class="fw-bold mb-2">📝 Description</h4>
+            <p class="text-muted">@Model.Description</p>
+
+            <!-- BUY BUTTON or ADMIN WARNING -->
+            <div class="mt-4 d-flex gap-3">
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <!-- Admin cannot buy tickets -->
+                    <div class="alert alert-warning fw-semibold">
+                        Admin users cannot purchase tickets.
+                    </div>
+                }
+                else
+                {
+                    <!-- BUY TICKET FORM (only for normal users) -->
+                    <form id="buyForm"
+                          asp-area="Guest"
+                          asp-controller="Event"
+                          asp-action="Buy"
+                          method="post">
+
+                        <input type="hidden" name="id" value="@Model.EventId" />
+
+                        <button id="buyBtn"
+                                data-event-id="@Model.EventId"
+                                type="submit"
+                                class="btn btn-success px-4">
+                            Buy Ticket
+                        </button>
+                    </form>
+                }
+
+                <a asp-area="Guest"
+                   asp-controller="Event"
+                   asp-action="Index"
+                   class="btn btn-outline-secondary px-4 py-2 fw-semibold">
+                    ← Back to Events
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+
+    // ===== Update tickets using AJAX BEFORE redirect =====
+    $('#buyBtn').on("click", function () {
+
+        let eventId = $(this).data("event-id");
+
+        $.post('/Guest/Event/UpdateTickets', { id: eventId }, function (data) {
+            if (data.success) {
+                $('#ticketsLeft').text(data.tickets);
+            }
+        });
+
+        // No preventDefault → form continues submitting normally
+    });
+
+</script>
+}

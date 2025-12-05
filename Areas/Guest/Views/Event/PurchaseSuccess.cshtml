@@ -1,0 +1,44 @@
+﻿@model GBC_TicketingSystem_2.Models.Ticket
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body text-center p-5">
+
+            <h1 class="fw-bold text-success mb-4">
+                🎉 Ticket Purchased Successfully!
+            </h1>
+
+            <p class="fs-5 mb-4">
+                Thank you for your purchase! Your ticket details are below.
+            </p>
+
+            <div class="alert alert-primary text-start mx-auto" style="max-width: 550px;">
+                <p><strong>Event:</strong> @Model.Event.Title</p>
+                <p><strong>Date:</strong> @Model.Event.EventDate.ToLocalTime().ToString("MMM dd, yyyy")</p>
+                <p><strong>Category:</strong> @Model.Event.Category?.Name</p>
+                <p><strong>Purchased On:</strong> @Model.PurchaseDate.ToLocalTime().ToString("MMM dd, yyyy - h:mm tt")</p>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-center gap-3">
+                <a asp-area="Guest"
+                   asp-controller="Ticket"
+                   asp-action="MyTickets"
+                   class="btn btn-primary px-4">
+                    View My Tickets
+                </a>
+
+                <a asp-area="Guest"
+                   asp-controller="Event"
+                   asp-action="Index"
+                   class="btn btn-outline-secondary px-4">
+                    Back to Events
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+﻿@model GBC_TicketingSystem_2.Areas.Admin.Models.Event
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="fw-bold text-primary mb-4"> Edit Event</h2>
+
+<div class="card shadow-sm border-0 mx-auto" style="max-width: 700px;">
+    <div class="card-body">
+
+        <form method="post">
+            <input type="hidden" asp-for="EventId" />
+
+            <!-- Title -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Title</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger small"></span>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Description</label>
+                <textarea asp-for="Description" rows="4" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger small"></span>
+            </div>
+
+            <!-- Event Date -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Event Date</label>
+                <input asp-for="EventDate" type="date" class="form-control" />
+                <span asp-validation-for="EventDate" class="text-danger small"></span>
+            </div>
+
+            <!-- Category -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Category</label>
+                <select asp-for="CategoryId"
+                        class="form-select"
+                        asp-items="ViewBag.Categories"></select>
+            </div>
+
+            <!-- Tickets -->
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Tickets Available</label>
+                <input asp-for="TicketsAvailable" type="number" class="form-control" />
+                <span asp-validation-for="TicketsAvailable" class="text-danger small"></span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success px-4">Save Changes</button>
+
+                <a asp-action="Index"
+                   class="btn btn-outline-secondary px-4">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

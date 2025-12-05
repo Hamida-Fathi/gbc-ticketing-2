@@ -1,0 +1,12 @@
+﻿bin/
+obj/
+*.user
+*.suo
+*.vs/
+.idea/
+*.db
+*.sqlite
+*.mdf
+*.ldf
+*.log
+appsettings.Development.json
